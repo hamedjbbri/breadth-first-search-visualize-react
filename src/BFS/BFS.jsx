@@ -21,7 +21,7 @@ export default class BFS extends React.Component{
         const { canvasWidth, canvasHeight } = this.state.canvasSize;
         this.canvasHex.width = canvasWidth;
         this.canvasHex.height = canvasHeight;
-        this.drawHex(this.canvasHex, { x: 50, y: 50 });
+        this.drawHexes();
 
     }
     
@@ -57,8 +57,33 @@ export default class BFS extends React.Component{
        ctx.closePath();
     }
 
-        
+    drawHexes() {
+        for(let r = 0; r <= 4; r++){
+            for(let q = 0; q < 4; q++){
+                console.log(r,q)
+                let center = this.hexToPixel(this.Hex(q,r));
+                
+                this.drawHex(this.canvasHex, center)
+                 
+                // console.log(center)
+            }
+        }
+    }    
+
+
+     hexToPixel(h){
+         let x = this.state.hexSize * Math.sqrt(3) * (h.q + h.r/2);
+         let y = this.state.hexSize * 3/2 * h.r;
+         return this.Point(x, y)
+     }
+  
+
+     Hex(q, r) {
+         return { q: q, r: r }
+     } 
  
+
+
     render() {
         return(
             <div className="BFS">
